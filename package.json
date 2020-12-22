@@ -1,0 +1,47 @@
+{
+  "name": "custom-scrollbar",
+  "version": "1.0.0",
+  "description": "A customizable scrollbar based on vue.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Inchill/custom-scrollbar.git"
+  },
+  "keywords": [
+    "custom-scrollbar"
+  ],
+  "author": "inchill",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Inchill/custom-scrollbar/issues"
+  },
+  "homepage": "https://github.com/Inchill/custom-scrollbar#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/runtime": "^7.12.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.1",
+    "eslint": "^7.16.0",
+    "eslint-plugin-vue": "^7.3.0",
+    "html-webpack-plugin": "^4.5.0",
+    "prettier": "2.2.1",
+    "style-loader": "^2.0.0",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^4.3.1",
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.6",
+    "vue-template-compiler": "^2.6.12",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.7.2"
+  }
+}
