@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "webpack-dev-server --config ./build/webpack.dev.js"
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js",
+    "build": "webpack --config ./build/webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -31,11 +32,13 @@
     "css-loader": "^5.0.1",
     "eslint": "^7.16.0",
     "eslint-plugin-vue": "^7.3.0",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
     "prettier": "2.2.1",
     "style-loader": "^2.0.0",
     "stylus": "^0.54.8",
     "stylus-loader": "^4.3.1",
+    "url-loader": "^4.1.1",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12",
