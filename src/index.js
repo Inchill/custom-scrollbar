@@ -1,21 +1,24 @@
-const CustomScrollbar = () => import('./components/custom-scrollbar.vue')
+import { initMixin } from './scrollbar/init'
+import { coreMixin } from './scrollbar/core'
 
-const customScrollbar = {
-  version: __VERSION__,
-  CustomScrollbar,
-  install
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(install)
-}
-
-export default customScrollbar
-
-function install(Vue) {
-  if (install.installed) {
-    return
+function CustomScrollbar (el, options = {}) {
+  this.wrapper = typeof el === 'string' ? document.querySelector(el) : el
+  if (!this.wrapper) {
+    console.error('[warn]Can not resolve the wrapper')
   }
-  Vue.component(CustomScrollbar.name, CustomScrollbar)
+
+  this.content = this.wrapper.children[0]
+  if (!this.content) {
+    console.error('[warn]The wrapper need at least one child to be content.')
+  }
+
+  this.contentStyle = this.content.style
+
+  this._init(el, options)
 }
+
+initMixin(CustomScrollbar)
+coreMixin(CustomScrollbar)
+
+module.exports = CustomScrollbar
 

@@ -1,3 +1,23 @@
-# custom-scrollbar
+# Custom-Scrollbar
 
-一个基于 vue 的可自定义的 scrollbar。
+一个可自定义的 scrollbar。
+
+## 特点
+
+- 使用简单
+
+- 自动定位
+
+- 支持水平、纵向滚动条
+
+- 缩放自适应
+
+- 可自定义样式
+
+- 鼠标滚动
+
+- 按键滚动
+
+- 事件响应
+
+## 示例

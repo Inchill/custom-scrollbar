@@ -4,8 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>custom-scrollbar</title>
+  <script src="../lib/custom-scrollbar.js"></script>
+  <style>
+    .wrapper {
+      width: 200px;
+      height: 100px;
+      margin: 200px auto;
+    }
+
+    .custom-scrollbar {
+      width: 40px;
+      height: 4px;
+    }
+
+    .custom-scrollbar-thumb {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 112, 37, .2);
+    }
+  </style>
 </head>
 <body>
-  <div id="app"></div>
+  <div class="wrapper">
+    <div class="content">
+      <img src="./images/bg-snow.jpg" alt="" srcset="">
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const wrapper = document.querySelector('.wrapper')
+    new CustomScrollbar(wrapper)
+  </script>
 </body>
 </html>
