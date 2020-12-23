@@ -1,7 +1,4 @@
-const DEFAULT_OPTIONS = {
-  
-}
-
-export default {
-  DEFAULT_OPTIONS
+export const DEFAULT_OPTIONS = {
+  scrollbarWidth: 40,
+  scrollbarHeight: 4
 }

@@ -12,6 +12,7 @@ function CustomScrollbar (el, options = {}) {
     console.error('[warn]The wrapper need at least one child to be content.')
   }
 
+  this.wrapperStyle = this.wrapper.style
   this.contentStyle = this.content.style
 
   this._init(el, options)

@@ -2,12 +2,19 @@ import { getRect } from '../utils/dom'
 
 export function coreMixin (CustomScrollbar) {
   CustomScrollbar.prototype._styleInit = function () {
+    this.wrapperStyle.overflow = 'scroll'
+    this.wrapperStyle.position = 'relative'
+
+    this.contentStyle.width = 'fit-content'
+    this.contentStyle.height = 'fit-content'
     this.contentStyle.overflow = 'scroll'
   
     // set the style of -webkit-scrollbar.
     let styleElement = document.createElement('style')
-    styleElement.appendChild(document.createTextNode('div ::-webkit-scrollbar { display: none }'))
+    styleElement.appendChild(document.createTextNode('div::-webkit-scrollbar { display: none }'))
     this.content.appendChild(styleElement)
+
+    this._createCustomScrollbar()
   }
 
   CustomScrollbar.prototype._setStyle = function () {
@@ -21,11 +28,16 @@ export function coreMixin (CustomScrollbar) {
     this.trackStyle = this.track.style
 
     const wrapperRect = getRect(this.wrapper)
-    const contentWidth = this.content.scrollWidth
+    const contentRect = getRect(this.content)
+    const contentWidth = contentRect.width
     const wrapperWidth = wrapperRect.width
-
-    console.log('contetn width=', contentWidth)
-    console.log('wrapper width=', wrapperWidth)
+    
+    this.scrollbarStyle.width = this.options.scrollbarWidth + 'px'
+    this.scrollbarStyle.height = this.options.scrollbarHeight + 'px'
+    this.scrollbarStyle.position = 'absolute'
+    this.scrollbarStyle.bottom = 0
+    this.scrollbarStyle.left = '50%'
+    this.scrollbarStyle.transform = 'translateX(-50%)'
   }
 
   CustomScrollbar.prototype.setStyle = function () {
@@ -48,5 +60,20 @@ export function coreMixin (CustomScrollbar) {
     this.wrapper.appendChild(scrollbar)
 
     this._setStyle()
+  }
+
+  CustomScrollbar.prototype._calculateCtntChildrenSize = function () {
+    const len = this.content.children.length
+    const totalSize = {
+      width: 0,
+      height: 0
+    }
+
+    for (var i = 0; i < len; i++) {
+      const child = this.content.children[i]
+      const childRect = getRect(child)
+      totalSize.width += childRect.width
+      totalSize.height += childRect.height
+    }
   }
 }
