@@ -1,4 +1,4 @@
 export const DEFAULT_OPTIONS = {
-  scrollbarWidth: 40,
+  scrollbarWidth: 200,
   scrollbarHeight: 4
 }

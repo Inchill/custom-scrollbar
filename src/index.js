@@ -1,5 +1,6 @@
 import { initMixin } from './scrollbar/init'
 import { coreMixin } from './scrollbar/core'
+import { eventMixin } from './scrollbar/event'
 
 function CustomScrollbar (el, options = {}) {
   this.wrapper = typeof el === 'string' ? document.querySelector(el) : el
@@ -19,6 +20,7 @@ function CustomScrollbar (el, options = {}) {
 }
 
 initMixin(CustomScrollbar)
+eventMixin(CustomScrollbar)
 coreMixin(CustomScrollbar)
 
 module.exports = CustomScrollbar

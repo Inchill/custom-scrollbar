@@ -11,3 +11,11 @@ export function getRect (el) {
     height: rect.height
   }
 }
+
+export function addEvent (el, type, fn, capture) {
+  el.addEventListener(type, fn, {passive: false, capture: !!capture})
+}
+
+export function removeEvent(el, type, fn, capture) {
+  el.removeEventListener(type, fn, {passive: false, capture: !!capture})
+}

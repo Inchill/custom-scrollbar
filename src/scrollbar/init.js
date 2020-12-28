@@ -5,5 +5,7 @@ export function initMixin (CustomScrollbar) {
     this.options = Object.assign(DEFAULT_OPTIONS, options)
 
     this._styleInit()
+
+    this._addDOMEvents()
   }
 }

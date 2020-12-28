@@ -2,7 +2,6 @@ import { getRect } from '../utils/dom'
 
 export function coreMixin (CustomScrollbar) {
   CustomScrollbar.prototype._styleInit = function () {
-    this.wrapperStyle.overflow = 'scroll'
     this.wrapperStyle.position = 'relative'
 
     this.contentStyle.width = 'fit-content'
@@ -14,18 +13,25 @@ export function coreMixin (CustomScrollbar) {
     styleElement.appendChild(document.createTextNode('div::-webkit-scrollbar { display: none }'))
     this.content.appendChild(styleElement)
 
+    this._createScrollContent()
     this._createCustomScrollbar()
+
+    this.scrollContentStyle.overflow = 'scroll'
+    this.scrollContentStyle.width = 'inherit'
+    this.scrollContentStyle.height = 'inherit'
   }
 
-  CustomScrollbar.prototype._setStyle = function () {
+  CustomScrollbar.prototype._setScrollbarStyle = function () {
     this.scrollbar = document.querySelector('.custom-scrollbar')
     this.scrollbarStyle = this.scrollbar.style
 
     this.thumb = document.querySelector('.custom-scrollbar-thumb')
     this.thumbStyle = this.thumb.style
+    this.thumbStyle.position = 'relative'
 
     this.track = document.querySelector('.custom-scrollbar-track')
     this.trackStyle = this.track.style
+    this.trackStyle.position = 'absolute'
 
     const wrapperRect = getRect(this.wrapper)
     const contentRect = getRect(this.content)
@@ -38,6 +44,9 @@ export function coreMixin (CustomScrollbar) {
     this.scrollbarStyle.bottom = 0
     this.scrollbarStyle.left = '50%'
     this.scrollbarStyle.transform = 'translateX(-50%)'
+
+    const radio = wrapperWidth / contentWidth * 100
+    this.trackStyle.width = `${radio}%`
   }
 
   CustomScrollbar.prototype.setStyle = function () {
@@ -59,21 +68,25 @@ export function coreMixin (CustomScrollbar) {
     scrollbar.appendChild(thumb)
     this.wrapper.appendChild(scrollbar)
 
-    this._setStyle()
+    this._setScrollbarStyle()
   }
 
-  CustomScrollbar.prototype._calculateCtntChildrenSize = function () {
-    const len = this.content.children.length
-    const totalSize = {
-      width: 0,
-      height: 0
-    }
+  CustomScrollbar.prototype._createScrollContent = function () {
+    // In order to prevent the custom scrollbar from scrolling with the wrapper, a layer of scrollContent is added to the content element.
+    let scrollContent = document.createElement('div')
+    scrollContent.appendChild(this.content)
+    this.wrapper.appendChild(scrollContent)
 
-    for (var i = 0; i < len; i++) {
-      const child = this.content.children[i]
-      const childRect = getRect(child)
-      totalSize.width += childRect.width
-      totalSize.height += childRect.height
-    }
+    this.scrollContent = scrollContent
+    this.scrollContentStyle = this.scrollContent.style
+  }
+
+  CustomScrollbar.prototype._calculateTrackOffset = function (e) {
+    const scrollLeft = this.scrollContent.scrollLeft
+    const contentRect = getRect(this.content)
+    const contentWidth = contentRect.width
+
+    const leftRadio = scrollLeft / contentWidth * 100
+    this.trackStyle.left = `${leftRadio}%`
   }
 }
