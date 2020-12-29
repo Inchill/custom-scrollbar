@@ -1,6 +1,7 @@
 const common = require('./webpack.common')
 const { merge } = require('webpack-merge')
 const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = merge(common, {
   entry: {
@@ -11,6 +12,13 @@ module.exports = merge(common, {
     path: path.join(__dirname, '../lib'),
     library: 'CustomScrollbar', // expose the constructor
     libraryTarget: 'window'
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        exclude: /node_modules/
+      })
+    ]
   },
   mode: 'production'
 })

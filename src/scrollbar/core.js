@@ -22,57 +22,92 @@ export function coreMixin (CustomScrollbar) {
   }
 
   CustomScrollbar.prototype._setScrollbarStyle = function () {
-    this.scrollbar = document.querySelector('.custom-scrollbar')
-    this.scrollbarStyle = this.scrollbar.style
+    this.thumbHStyle.position = this.thumbVStyle.position = 'relative'
+    this.thumbHStyle.width = this.thumbVStyle.width = 'inherit'
+    this.thumbHStyle.height = this.thumbVStyle.height = 'inherit'
 
-    this.thumb = document.querySelector('.custom-scrollbar-thumb')
-    this.thumbStyle = this.thumb.style
-    this.thumbStyle.position = 'relative'
-
-    this.track = document.querySelector('.custom-scrollbar-track')
-    this.trackStyle = this.track.style
-    this.trackStyle.position = 'absolute'
+    this.trackHStyle.position = this.trackVStyle.position = 'absolute'
+    this.trackHStyle.height = this.trackVStyle.width = 'inherit'
 
     const wrapperRect = getRect(this.wrapper)
     const contentRect = getRect(this.content)
     const contentWidth = contentRect.width
     const wrapperWidth = wrapperRect.width
+    const contentHeight = contentRect.height
+    const wrapperHeight = wrapperRect.height
     
-    this.scrollbarStyle.width = this.options.scrollbarWidth + 'px'
-    this.scrollbarStyle.height = this.options.scrollbarHeight + 'px'
-    this.scrollbarStyle.position = 'absolute'
-    this.scrollbarStyle.bottom = 0
-    this.scrollbarStyle.left = '50%'
-    this.scrollbarStyle.transform = 'translateX(-50%)'
+    // set horizontal scrollbar position, default at the bottom
+    this.scrollbarHStyle.width = this.options.scrollbarHWidth + 'px'
+    this.scrollbarHStyle.height = this.options.scrollbarHHeight + 'px'
+    this.scrollbarHStyle.position = 'absolute'
+    this.scrollbarHStyle.bottom = 0
+    this.scrollbarHStyle.left = 0
 
-    const radio = wrapperWidth / contentWidth * 100
-    this.trackStyle.width = `${radio}%`
-  }
+    // set vertical scrollbar position, default at the right
+    this.scrollbarVStyle.width = this.options.scrollbarVWidth + 'px'
+    this.scrollbarVStyle.height = this.options.scrollbarVHeight + 'px'
+    this.scrollbarVStyle.position = 'absolute'
+    this.scrollbarVStyle.right = 0
+    this.scrollbarVStyle.top = 0
 
-  CustomScrollbar.prototype.setStyle = function () {
-    
+    // set width or height radio of the track.
+    const trackHRadio = wrapperWidth / contentWidth * 100
+    const trackVRadio = wrapperHeight / contentHeight * 100
+    if (trackHRadio === 100) {
+      this.scrollbarHStyle.display = 'none'
+    }
+    if (trackVRadio === 100) {
+      this.scrollbarVStyle.display = 'none'
+    }
+    this.trackHStyle.width = `${trackHRadio}%`
+    this.trackVStyle.height = `${trackVRadio}%`
   }
 
   CustomScrollbar.prototype._createCustomScrollbar = function () {
-    // 1. create scrollbar
-    let scrollbar = document.createElement('div')
-    scrollbar.classList.add('custom-scrollbar')
+    // 1. create scrollbar, this is used for positioning relative to the wrapper.
+    let scrollbarH = document.createElement('div')
+    let scrollbarV = document.createElement('div')
+    scrollbarH.classList.add('custom-scrollbar_h')
+    scrollbarV.classList.add('custom-scrollbar_v')
     // 2. create thumb
-    let thumb = document.createElement('div')
-    thumb.classList.add('custom-scrollbar-thumb')
-    // 3. create track
-    let track = document.createElement('div')
-    track.classList.add('custom-scrollbar-track')
+    let thumbH = document.createElement('div')
+    let thumbV = document.createElement('div')
+    thumbH.classList.add('custom-scrollbar-thumb_h')
+    thumbV.classList.add('custom-scrollbar-thumb_v')
+    // 3. create track, this is used to scroll relative to the thumb.
+    let trackH = document.createElement('div')
+    let trackV = document.createElement('div')
+    trackH.classList.add('custom-scrollbar-track_h')
+    trackV.classList.add('custom-scrollbar-track_v')
     // 4. append child
-    thumb.appendChild(track)
-    scrollbar.appendChild(thumb)
-    this.wrapper.appendChild(scrollbar)
+    thumbH.appendChild(trackH)
+    thumbV.appendChild(trackV)
+    scrollbarH.appendChild(thumbH)
+    scrollbarV.appendChild(thumbV)
+    this.wrapper.appendChild(scrollbarH)
+    this.wrapper.appendChild(scrollbarV)
+
+    this.scrollbarH = scrollbarH
+    this.scrollbarHStyle = this.scrollbarH.style
+    this.scrollbarV = scrollbarV
+    this.scrollbarVStyle = this.scrollbarV.style
+
+    this.thumbH = thumbH
+    this.thumbHStyle = this.thumbH.style
+    this.thumbV = thumbV
+    this.thumbVStyle = this.thumbV.style
+
+    this.trackH = trackH
+    this.trackHStyle = this.trackH.style
+    this.trackV = trackV
+    this.trackVStyle = this.trackV.style
 
     this._setScrollbarStyle()
   }
 
   CustomScrollbar.prototype._createScrollContent = function () {
-    // In order to prevent the custom scrollbar from scrolling with the wrapper, a layer of scrollContent is added to the content element.
+    // In order to prevent the custom scrollbar from scrolling with the wrapper,
+    // a layer of scrollContent is added to the content element.
     let scrollContent = document.createElement('div')
     scrollContent.appendChild(this.content)
     this.wrapper.appendChild(scrollContent)
@@ -83,10 +118,14 @@ export function coreMixin (CustomScrollbar) {
 
   CustomScrollbar.prototype._calculateTrackOffset = function (e) {
     const scrollLeft = this.scrollContent.scrollLeft
+    const scrollTop = this.scrollContent.scrollTop
     const contentRect = getRect(this.content)
     const contentWidth = contentRect.width
+    const contentHeight = contentRect.height
 
     const leftRadio = scrollLeft / contentWidth * 100
-    this.trackStyle.left = `${leftRadio}%`
+    const topRadio = scrollTop / contentHeight * 100
+    this.trackHStyle.left = `${leftRadio}%`
+    this.trackVStyle.top = `${topRadio}%`
   }
 }

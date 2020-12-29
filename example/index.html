@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>custom-scrollbar</title>
+  <link rel="stylesheet" href="../../../Desktop/perfect-scrollbar-1.4.0/css/perfect-scrollbar.css">
   <style>
     .wrapper {
       width: 200px;
@@ -11,14 +12,47 @@
       margin: 200px auto;
     }
 
-    
-    .custom-scrollbar-thumb {
-      background-color: #eee;
-      height: 100%;
+    #container {
+      width: 200px;
+      height: 200px;
+      margin: 200px auto;
+      position: relative;
     }
-    .custom-scrollbar-track {
-      background-color: orange;
-      height: 100%;
+    .content {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+    }
+    .box:nth-of-type(1) {
+      background-color: cyan;
+    }
+    .box:nth-of-type(2) {
+      background-color: burlywood;
+    }
+    .box:nth-last-of-type(1) {
+      background-color: royalblue;
+    }
+
+    
+    .custom-scrollbar-thumb_h {
+      background-color: #eee;
+      border-radius: 2px;
+    }
+    .custom-scrollbar-track_h {
+      background-color: green;
+      border-radius: 2px;
+    }
+    .custom-scrollbar-thumb_v {
+      background-color: #eee;
+      border-radius: 2px;
+    }
+    .custom-scrollbar-track_v {
+      background-color: green;
+      border-radius: 2px;
     }
   </style>
 </head>
@@ -26,13 +60,21 @@
   <div class="wrapper">
     <div class="content">
       <img src="./images/bg-snow.jpg" alt="" srcset="">
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
     </div>
+  </div>
+  <div id="container">
+    <img src="./images/bg-snow.jpg" alt="" srcset="">
   </div>
 
   <script src="../lib/custom-scrollbar.js"></script>
+  <script src="../../../Desktop/perfect-scrollbar-1.4.0/dist/perfect-scrollbar.js"></script>
   <script type="text/javascript">
     const wrapper = document.querySelector('.wrapper')
     new CustomScrollbar(wrapper)
+    const ps = new PerfectScrollbar('#container')
   </script>
 </body>
 </html>
