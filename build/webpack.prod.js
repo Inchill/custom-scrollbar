@@ -9,7 +9,7 @@ module.exports = merge(common, {
   },
   output: {
     filename: 'custom-scrollbar.js',
-    path: path.join(__dirname, '../lib'),
+    path: path.join(__dirname, '../dist'),
     library: 'CustomScrollbar', // expose the constructor
     libraryTarget: 'window'
   },

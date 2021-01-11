@@ -4,5 +4,7 @@ export const DEFAULT_OPTIONS = {
   scrollbarVWidth: 4,
   scrollbarVHeight: 200,
   thumbBgc: 'rgba(255, 112, 37, .2)',
-  trackBgc: 'rgba(255, 112, 37, 1)'
+  trackBgc: 'rgba(255, 112, 37, 1)',
+  scrollbarVPos: 'right',
+  scrollbarHPos: 'bottom'
 }

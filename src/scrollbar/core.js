@@ -7,7 +7,7 @@ export function coreMixin (CustomScrollbar) {
     this.contentStyle.width = 'fit-content'
     this.contentStyle.height = 'fit-content'
     this.contentStyle.overflow = 'scroll'
-  
+
     // set the style of -webkit-scrollbar.
     let styleElement = document.createElement('style')
     styleElement.appendChild(document.createTextNode('div::-webkit-scrollbar { display: none }'))
@@ -35,19 +35,27 @@ export function coreMixin (CustomScrollbar) {
     const wrapperWidth = wrapperRect.width
     const contentHeight = contentRect.height
     const wrapperHeight = wrapperRect.height
-    
+
     // set horizontal scrollbar position, default at the bottom
     this.scrollbarHStyle.width = this.options.scrollbarHWidth + 'px'
     this.scrollbarHStyle.height = this.options.scrollbarHHeight + 'px'
     this.scrollbarHStyle.position = 'absolute'
-    this.scrollbarHStyle.bottom = 0
+    if (this.options.scrollbarHPos === 'top') {
+      this.scrollbarHStyle.top = 0
+    } else {
+      this.scrollbarHStyle.bottom = 0
+    }
     this.scrollbarHStyle.left = 0
 
     // set vertical scrollbar position, default at the right
     this.scrollbarVStyle.width = this.options.scrollbarVWidth + 'px'
     this.scrollbarVStyle.height = this.options.scrollbarVHeight + 'px'
     this.scrollbarVStyle.position = 'absolute'
-    this.scrollbarVStyle.right = 0
+    if (this.options.scrollbarVPos === 'left') {
+      this.scrollbarVStyle.left = 0
+    } else {
+      this.scrollbarVStyle.right = 0
+    }
     this.scrollbarVStyle.top = 0
 
     // set width or height radio of the track.

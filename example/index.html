@@ -15,7 +15,7 @@
     #container {
       width: 200px;
       height: 200px;
-      margin: 200px auto;
+      margin: 100px auto;
       position: relative;
     }
     .content {
@@ -37,7 +37,7 @@
       background-color: royalblue;
     }
 
-    
+
     .custom-scrollbar-thumb_h {
       background-color: #eee;
       border-radius: 2px;
@@ -49,6 +49,8 @@
     .custom-scrollbar-thumb_v {
       background-color: #eee;
       border-radius: 2px;
+      background-image: url('https://dpubstatic.udache.com/static/dpubimg/c5su4gfqu4/cartoon.jpg');
+      background-size: cover;
     }
     .custom-scrollbar-track_v {
       background-color: green;
@@ -69,11 +71,13 @@
     <img src="./images/bg-snow.jpg" alt="" srcset="">
   </div>
 
-  <script src="../lib/custom-scrollbar.js"></script>
+  <script src="../dist/custom-scrollbar.js"></script>
   <script src="../../../Desktop/perfect-scrollbar-1.4.0/dist/perfect-scrollbar.js"></script>
   <script type="text/javascript">
     const wrapper = document.querySelector('.wrapper')
-    new CustomScrollbar(wrapper)
+    const cs = new CustomScrollbar(wrapper, {
+      scrollbarVPos: 'left'
+    })
     const ps = new PerfectScrollbar('#container')
   </script>
 </body>
