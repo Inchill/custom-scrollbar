@@ -20,4 +20,6 @@ A customizable scrollbar.
 
 - Incident response
 
+- support click thumb to move track
+
 ## Demo
