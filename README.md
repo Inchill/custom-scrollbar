@@ -1,6 +1,6 @@
 # Custom-Scrollbar
 
-A customizable scrollbar.
+A customizable scrollbar tester.
 
 ## Features
 
